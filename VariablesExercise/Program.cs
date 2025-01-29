@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Data;
+﻿using System.Data;
 using System.Runtime.ExceptionServices;
 
 namespace VariablesExercise
@@ -8,221 +7,169 @@ namespace VariablesExercise
     {
         static void Main(string[] args)
         {
+            Console.Clear();
             Console.WriteLine("Lets do a MadLib together!");
             Console.WriteLine("If you'd like to abort the game at any point type 'exit'");
 
-            bool doYouWantToExit = false;
-
-            Question(string wordRequested);
-
-            
+            bool keepGoing = true;
+            string lastWord = "";
 
 
-            //these lines will get all the input from the user
-            Console.WriteLine("Please enter a double number");
-            double numberOfLoads = GetADouble();
-            Console.WriteLine("Please enter a decimal number");
-            decimal hoursToComplete = GetADecimal();
-            Console.WriteLine("Please enter a letter");
-            char a = GetALetter();
-            Console.WriteLine("Please enter a letter");
-            char z = GetALetter();
-            Console.WriteLine("Please enter a verb");
-            string gather = GetTheWord("verb");
+            string[] allTheWords = new string[18];
+            for (int i = 0; i < allTheWords.Length; i++)
+            {
+                if (i < 6 && keepGoing)// all the verbs
+                    allTheWords[i] = GetTheWord("a verb");
+                if (i == 6 && keepGoing) //decimal
+                    allTheWords[i] = GetTheWord("a decimal number");
+                if (i == 7 && keepGoing)//double
+                    allTheWords[i] = GetTheWord("a double number");
+                if ((i == 8 || i == 9) && keepGoing)//ints
+                    allTheWords[i] = GetTheWord("a whole number");
+                if ((i == 10 || i == 11) && keepGoing)//chars
+                    allTheWords[i] = GetTheWord("a single letter");
+                if (i == 12 && keepGoing)//noun
+                    allTheWords[i] = GetTheWord("a noun");
+                if ((i == 13 || i == 14) && keepGoing)//plural noun
+                    allTheWords[i] = GetTheWord("a plural noun");
+                if ((i == 15 || i == 16) && keepGoing)// plural color
+                    allTheWords[i] = GetTheWord("a plural color");
+                if (i == 17 && keepGoing) //adjective
+                    lastWord = GetTheWord("an adjective");
+            } 
 
-            // This creates a list of items to collect
+
+            // This creates a list of a random number of items to collect
             Random random = new Random();
-            int numberOfItems = random.Next(1, 4);
+            int numberOfItems = random.Next(2, 4);
             string[] listOfItemsToCollect = new string[numberOfItems];
 
-            for (int i = 0; i < numberOfItems; i++)
+            if (keepGoing)
             {
-                Console.WriteLine("Please enter a noun");
-                listOfItemsToCollect[i] = GetTheWord("noun");
+
+                for (int i = 0; i < numberOfItems; i++)
+                {
+                    listOfItemsToCollect[i] = GetTheWord("a noun");
+                }
             }
 
-            Console.WriteLine("Please enter a verb");
-            string preTreat = GetTheWord("verb");
-            Console.WriteLine("Please enter a plural noun");
-            string delicates = GetTheWord("plural noun");
-            Console.WriteLine("Please enter a plural noun");
-            string regulars = GetTheWord("plural noun");
-            Console.WriteLine("Please enter a noun");
-            string washingMachine = GetTheWord("noun");
-            Console.WriteLine("Please enter a plural color");
-            string lights = GetTheWord("plural color");
-            Console.WriteLine("Please enter a plural color");
-            string darks = GetTheWord("plural color");
-            Console.WriteLine("Please enter a number");
-            int temp = GetAnInt();
-            Console.WriteLine("Please enter a verb");
-            string remove = GetTheWord("verb");
-            Console.WriteLine("Please enter a verb");
-            string put = GetTheWord("verb");
-            Console.WriteLine("Please enter a verb");
-            string start = GetTheWord("verb");
-            Console.WriteLine("Please enter a number");
-            int numOfMin = GetAnInt();
-            Console.WriteLine("Please enter a verb");
-            string fold = GetTheWord("verb");
-            Console.WriteLine("Please enter an adjective");
-            string clean = GetTheWord("adjective");
-
-            Console.WriteLine("\nGreat job!! You've made it this far and are still with me! Are you ready for your MadLib??");
-            Console.WriteLine("Press 'enter' to see the result");
-            Console.ReadLine();
-
-            //I chose to round the decimal number to 1 decimal place
-            Console.WriteLine($"It's laundry day and boy is there a lot to do. There are {numberOfLoads} loads of laundry!");
-            Console.WriteLine($"It will probably take {hoursToComplete:N1} hours to finish! Don't worry, I'll walk you through it from {a} to {z}.");
-            Console.WriteLine($"In order to do your laundry, first you have to {gather} your clothes. ");
-
-            Console.Write("Be sure you don't forget to collect your "); // this iterates through the list of items to print them out
-            for (int i = 0; i < listOfItemsToCollect.Length - 1; i++)
+            if (keepGoing)
             {
-                Console.Write($"{listOfItemsToCollect[i]}, ");
+                Console.WriteLine("\nGreat job!! You've made it this far and are still with me! Are you ready for your MadLib??");
+                Console.WriteLine("Press 'enter' to see the result");
+                Console.ReadLine();
+
+                //here the the mad lib!
+                Console.WriteLine($"It's laundry day and boy is there a lot to do. There are {allTheWords[7]} loads of laundry!");
+                Console.WriteLine($"It will probably take {allTheWords[6]} hours to finish! Don't worry, I'll walk you through it from {allTheWords[10]} to {allTheWords[11]}.");
+                Console.WriteLine($"In order to do your laundry, first you have to {allTheWords[0]} your clothes. ");
+
+                Console.Write("Be sure you don't forget to collect your "); // this iterates through the list of items to print them out
+                for (int i = 0; i < listOfItemsToCollect.Length - 1; i++)
+                {
+                    if (listOfItemsToCollect.Length < 3)
+                        Console.Write($"{listOfItemsToCollect[i]} ");
+                    else
+                        Console.Write($"{listOfItemsToCollect[i]}, ");
+                }
+                Console.WriteLine($"or {listOfItemsToCollect[numberOfItems - 1]}.");
+
+                Console.WriteLine($"Take time to {allTheWords[1]} any stained items. Seperate your {allTheWords[13]} from your {allTheWords[14]}");
+                Console.WriteLine($"and then load the {allTheWords[12]} machine. Make sure not to mix the ");
+                Console.WriteLine($"{allTheWords[15]} with the {allTheWords[16]}. Set the temperature to {allTheWords[8]} and begin the cycle. After that is finished,");
+                Console.WriteLine($"{allTheWords[2]} your clothes and {allTheWords[3]} them in the dryer. Set the temperature and {allTheWords[4]} the dryer.");
+                Console.WriteLine($"After about {allTheWords[9]} minutes, it should be completed! Now all you have to do is");
+                Console.WriteLine($"{allTheWords[5]} your clothes and you are all set! {char.ToUpper(lastWord[0]) + lastWord.Substring(1)} laundry!"); //this capitalizes the first word of the last sentence
             }
-            Console.WriteLine($"or {listOfItemsToCollect[numberOfItems - 1]}");
 
-            Console.WriteLine($"Take time to {preTreat} any stained items. Seperate your {delicates} from your {regulars}");
-            Console.WriteLine($"and then load the {washingMachine} machine. Make sure not to mix the ");
-            Console.WriteLine($"{lights} with the {darks}. Set the temperature to {temp} and begin the cycle. After that is finished,");
-            Console.WriteLine($"{remove} your clothes and {put} them in the dryer. Set the temperature and {start} the dryer.");
-            Console.WriteLine($"After about {numOfMin} minutes, it should be completed! Now all you have to do is");
-            Console.WriteLine($"{fold} your clothes and you are all set! {char.ToUpper(clean[0]) + clean.Substring(1)} laundry!"); //this capitalizes the first word of the last sentence
-
-
-            void Question(string wordRequested)
+            string GetTheWord(string wordRequested)
             {
-                if (!doYouWantToExit)
-                    Console.WriteLine($"Please enter {wordRequested}");
-            }
-            
-            string GetTheWord(string partOfSpeech)
-            {
+                Console.WriteLine($"Please enter {wordRequested}.");
+
                 bool validWordEntered = false;
                 string? word;
+                char letter;
+                double doubleNumberEntered;
+                decimal decimalNumberEntered;
+                int intNumberEntered;
+
                 do
                 {
                     word = Console.ReadLine();
-                    if (word != "" && word != null)
+                    if (word.ToLower() == "exit")
                     {
-                        validWordEntered = true;
+                        keepGoing = false;
+                        break;
+                    }
+                    else if (word != "" && word != null)
+                    {
+                        switch (wordRequested)
+                        {
+                            case "a verb":
+                            case "a noun":
+                            case "a plural noun":
+                            case "a plural color":
+                            case "an adjective":
+                                {
+                                    validWordEntered = true;
+                                    break;
+                                }
+                            case "a decimal number":
+                                bool itsADecimal = decimal.TryParse(word, out decimalNumberEntered);
+                                if (itsADecimal)
+                                {
+                                    word = decimalNumberEntered.ToString("0.#");
+                                    validWordEntered = true;
+                                }
+                                else
+                                    Console.WriteLine("You entered letters instead of a valid decimal number. Please try again!");
+                                break;
+
+                            case "a double number":
+                                bool itsADouble = double.TryParse(word, out doubleNumberEntered);
+                                if (itsADouble)
+                                {
+                                    word = doubleNumberEntered.ToString("0.#");
+                                    validWordEntered = true;
+                                    return word;
+
+                                }
+                                else
+                                    Console.WriteLine("You entered letters instead of a valid double number. Please try again!");
+                                break;
+
+                            case "a whole number":
+                                bool itsAnInt = int.TryParse(word, out intNumberEntered);
+                                if (itsAnInt)
+                                {
+                                    word = intNumberEntered.ToString();
+                                    validWordEntered = true;
+                                }
+                                else
+                                    Console.WriteLine("You entered letters instead of a valid integer. Please try again!");
+                                break;
+
+                            case "a single letter":
+                                if (word.Length == 1)
+                                {
+                                    letter = Convert.ToChar(word);
+                                    word = Char.ToString(letter);
+                                    return word;
+                                }
+                                else
+                                    Console.WriteLine("You entered too many letters. Please enter only one letter!");
+                                break;
+
+                        }
                     }
                     else
                     {
-                        Console.WriteLine($"You didn't enter anything. Please enter a valid {partOfSpeech}!");
+                        Console.WriteLine($"You didn't enter anything. Please enter {wordRequested}!");
+                        Console.WriteLine("Or type 'exit' to end the program");
                     }
                 } while (!validWordEntered);
 
                 return word;
-            }
-
-            char GetALetter()
-            {
-                bool validLetterEntered = false;
-                string? word;
-                char letter = ' ';
-                do
-                {
-                    word = Console.ReadLine();
-                    if (word != "" && word != null)
-                    {
-                        if (word.Length == 1)
-                        {
-                            letter = Convert.ToChar(word);
-                            validLetterEntered = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("You entered too many letters. Please enter only one letter!");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("You did not enter anything. Please enter a valid letter!");
-                    }
-                } while (!validLetterEntered);
-
-                return letter;
-            }
-           
-
-            Double GetADouble()
-            {
-                bool validDoubleEntered = false;
-                string? word;
-                double numberEntered = 0;
-                do
-                {
-                    word = Console.ReadLine();
-                    if (word != "" && word != null)
-                    {
-                        bool itsADouble = double.TryParse(word, out numberEntered);
-                        if (itsADouble)
-                            validDoubleEntered = true;
-                        else
-                            Console.WriteLine("You didn't enter a valid double number. Please try again!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You didn't enter anything. Please enter a valid double!");
-                    }
-                } while (!validDoubleEntered);
-
-                return numberEntered;
-            }
-
-            decimal GetADecimal()
-            {
-                bool validDecimalEntered = false;
-                string? word;
-                decimal numberEntered = 0m;
-                do
-                {
-                    word = Console.ReadLine();
-                    if (word != "" && word != null)
-                    {
-                        bool itsADecimal = decimal.TryParse(word, out numberEntered);
-                        if (itsADecimal)
-                            validDecimalEntered = true;
-                        else
-                            Console.WriteLine("You didn't enter a valid decimal number. Please try again!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You didn't enter anything. Please enter a valid decimal!");
-                    }
-                } while (!validDecimalEntered);
-
-                return numberEntered;
-            }
-
-            int GetAnInt()
-            {
-                bool validIntEntered = false;
-                string? word;
-                int numberEntered = 0;
-                do
-                {
-                    word = Console.ReadLine();
-                    if (word != "" && word != null)
-                    {
-                        bool itsAnInt = int.TryParse(word, out numberEntered);
-                        if (itsAnInt)
-                            validIntEntered = true;
-                        else
-                            Console.WriteLine("You didn't enter a valid integer. Please try again!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You didn't enter anything. Please enter a valid integer!");
-                    }
-                } while (!validIntEntered);
-
-                return numberEntered;
-
-
             }
         }
     }
