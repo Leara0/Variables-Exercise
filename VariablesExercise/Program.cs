@@ -14,7 +14,7 @@ namespace VariablesExercise
             bool keepGoing = true;
             string lastWord = "";
 
-
+            // creates an array and stores most of the user responses
             string[] allTheWords = new string[18];
             for (int i = 0; i < allTheWords.Length; i++)
             {
@@ -36,7 +36,7 @@ namespace VariablesExercise
                     allTheWords[i] = GetTheWord("a plural color");
                 if (i == 17 && keepGoing) //adjective
                     lastWord = GetTheWord("an adjective");
-            } 
+            }
 
 
             // This creates a list of a random number of items to collect
@@ -46,14 +46,13 @@ namespace VariablesExercise
 
             if (keepGoing)
             {
-
                 for (int i = 0; i < numberOfItems; i++)
                 {
                     listOfItemsToCollect[i] = GetTheWord("a noun");
                 }
             }
 
-            if (keepGoing)
+            if (keepGoing)  // preps for the mad lib if the user has not requested termination
             {
                 Console.WriteLine("\nGreat job!! You've made it this far and are still with me! Are you ready for your MadLib??");
                 Console.WriteLine("Press 'enter' to see the result");
@@ -82,6 +81,7 @@ namespace VariablesExercise
                 Console.WriteLine($"{allTheWords[5]} your clothes and you are all set! {char.ToUpper(lastWord[0]) + lastWord.Substring(1)} laundry!"); //this capitalizes the first word of the last sentence
             }
 
+            //method to retrieve user input
             string GetTheWord(string wordRequested)
             {
                 Console.WriteLine($"Please enter {wordRequested}.");
@@ -96,14 +96,14 @@ namespace VariablesExercise
                 do
                 {
                     word = Console.ReadLine();
-                    if (word.ToLower() == "exit")
+                    if (word.ToLower() == "exit") // checks if user wants to exit
                     {
                         keepGoing = false;
                         break;
                     }
-                    else if (word != "" && word != null)
+                    else if (word != "" && word != null) //ensures response is not null or ""
                     {
-                        switch (wordRequested)
+                        switch (wordRequested) //switches based on part of speech or type of number requested
                         {
                             case "a verb":
                             case "a noun":
@@ -132,7 +132,6 @@ namespace VariablesExercise
                                     word = doubleNumberEntered.ToString("0.#");
                                     validWordEntered = true;
                                     return word;
-
                                 }
                                 else
                                     Console.WriteLine("You entered letters instead of a valid double number. Please try again!");
@@ -162,12 +161,12 @@ namespace VariablesExercise
 
                         }
                     }
-                    else
+                    else // deals with null and "" cases
                     {
                         Console.WriteLine($"You didn't enter anything. Please enter {wordRequested}!");
                         Console.WriteLine("Or type 'exit' to end the program");
                     }
-                } while (!validWordEntered);
+                } while (!validWordEntered); //loops until a valid answer is given
 
                 return word;
             }
