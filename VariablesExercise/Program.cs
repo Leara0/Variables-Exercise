@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections;
+using System.Data;
 using System.Runtime.ExceptionServices;
 
 namespace VariablesExercise
@@ -8,6 +9,14 @@ namespace VariablesExercise
         static void Main(string[] args)
         {
             Console.WriteLine("Lets do a MadLib together!");
+            Console.WriteLine("If you'd like to abort the game at any point type 'exit'");
+
+            bool doYouWantToExit = false;
+
+            Question(string wordRequested);
+
+            
+
 
             //these lines will get all the input from the user
             Console.WriteLine("Please enter a double number");
@@ -31,7 +40,6 @@ namespace VariablesExercise
                 Console.WriteLine("Please enter a noun");
                 listOfItemsToCollect[i] = GetTheWord("noun");
             }
-
 
             Console.WriteLine("Please enter a verb");
             string preTreat = GetTheWord("verb");
@@ -84,6 +92,12 @@ namespace VariablesExercise
             Console.WriteLine($"{fold} your clothes and you are all set! {char.ToUpper(clean[0]) + clean.Substring(1)} laundry!"); //this capitalizes the first word of the last sentence
 
 
+            void Question(string wordRequested)
+            {
+                if (!doYouWantToExit)
+                    Console.WriteLine($"Please enter {wordRequested}");
+            }
+            
             string GetTheWord(string partOfSpeech)
             {
                 bool validWordEntered = false;
@@ -132,8 +146,9 @@ namespace VariablesExercise
 
                 return letter;
             }
+           
 
-            double GetADouble()
+            Double GetADouble()
             {
                 bool validDoubleEntered = false;
                 string? word;
