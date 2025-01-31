@@ -13,30 +13,33 @@ namespace VariablesExercise
 
             bool keepGoing = true;
             string lastWord = "";
+            int questionCounter = 0;
 
             // creates an array and stores most of the user responses
             string[] allTheWords = new string[18];
             for (int i = 0; i < allTheWords.Length; i++)
             {
+                questionCounter = i + 1;
                 if (i < 6 && keepGoing)// all the verbs
-                    allTheWords[i] = GetTheWord("a verb");
+                    allTheWords[i] = GetTheWord("a verb", questionCounter);
                 if (i == 6 && keepGoing) //decimal
-                    allTheWords[i] = GetTheWord("a decimal number");
+                    allTheWords[i] = GetTheWord("a decimal number", questionCounter);
                 if (i == 7 && keepGoing)//double
-                    allTheWords[i] = GetTheWord("a double number");
+                    allTheWords[i] = GetTheWord("a double number", questionCounter);
                 if ((i == 8 || i == 9) && keepGoing)//ints
-                    allTheWords[i] = GetTheWord("a whole number");
+                    allTheWords[i] = GetTheWord("a whole number", questionCounter);
                 if ((i == 10 || i == 11) && keepGoing)//chars
-                    allTheWords[i] = GetTheWord("a single letter");
+                    allTheWords[i] = GetTheWord("a single letter", questionCounter);
                 if (i == 12 && keepGoing)//noun
-                    allTheWords[i] = GetTheWord("a noun");
+                    allTheWords[i] = GetTheWord("a noun", questionCounter);
                 if ((i == 13 || i == 14) && keepGoing)//plural noun
-                    allTheWords[i] = GetTheWord("a plural noun");
+                    allTheWords[i] = GetTheWord("a plural noun", questionCounter);
                 if ((i == 15 || i == 16) && keepGoing)// plural color
-                    allTheWords[i] = GetTheWord("a plural color");
+                    allTheWords[i] = GetTheWord("a plural color", questionCounter);
                 if (i == 17 && keepGoing) //adjective
-                    lastWord = GetTheWord("an adjective");
+                    lastWord = GetTheWord("an adjective", questionCounter);
             }
+
 
 
             // This creates a list of a random number of items to collect
@@ -44,11 +47,14 @@ namespace VariablesExercise
             int numberOfItems = random.Next(2, 4);
             string[] listOfItemsToCollect = new string[numberOfItems];
 
+
+            questionCounter++; // increments questionCounter so it continues properly in the next loop
             if (keepGoing)
             {
-                for (int i = 0; i < numberOfItems; i++)
+                for (int i = 0; i < numberOfItems; i++)// start at 19 so the question counter continues properly
                 {
-                    listOfItemsToCollect[i] = GetTheWord("a noun");
+                    questionCounter += i;
+                    listOfItemsToCollect[i] = GetTheWord("a noun", questionCounter);
                 }
             }
 
@@ -82,16 +88,11 @@ namespace VariablesExercise
             }
 
             //method to retrieve user input
-            string GetTheWord(string wordRequested)
+            string GetTheWord(string wordRequested, int i)
             {
-                Console.WriteLine($"Please enter {wordRequested}.");
+                Console.WriteLine($"#{i}: Please enter {wordRequested}.");
 
-                bool validWordEntered = false;
                 string? word;
-                char letter;
-                double doubleNumberEntered;
-                decimal decimalNumberEntered;
-                int intNumberEntered;
 
                 do
                 {
@@ -110,55 +111,32 @@ namespace VariablesExercise
                             case "a plural noun":
                             case "a plural color":
                             case "an adjective":
-                                {
-                                    validWordEntered = true;
-                                    break;
-                                }
+                                return word;
                             case "a decimal number":
-                                bool itsADecimal = decimal.TryParse(word, out decimalNumberEntered);
-                                if (itsADecimal)
-                                {
-                                    word = decimalNumberEntered.ToString("0.#");
-                                    validWordEntered = true;
-                                }
+                                if (decimal.TryParse(word, out decimal decimalNumberEntered))
+                                    return word;
                                 else
                                     Console.WriteLine("You entered letters instead of a valid decimal number. Please try again!");
                                 break;
-
                             case "a double number":
-                                bool itsADouble = double.TryParse(word, out doubleNumberEntered);
-                                if (itsADouble)
-                                {
-                                    word = doubleNumberEntered.ToString("0.#");
-                                    validWordEntered = true;
+                                if (double.TryParse(word, out double doubleNumberEntered))
                                     return word;
-                                }
                                 else
                                     Console.WriteLine("You entered letters instead of a valid double number. Please try again!");
                                 break;
-
                             case "a whole number":
-                                bool itsAnInt = int.TryParse(word, out intNumberEntered);
-                                if (itsAnInt)
-                                {
-                                    word = intNumberEntered.ToString();
-                                    validWordEntered = true;
-                                }
+                                if (int.TryParse(word, out int intNumberEntered))
+                                    return word;
                                 else
                                     Console.WriteLine("You entered letters instead of a valid integer. Please try again!");
                                 break;
 
                             case "a single letter":
                                 if (word.Length == 1)
-                                {
-                                    letter = Convert.ToChar(word);
-                                    word = Char.ToString(letter);
                                     return word;
-                                }
                                 else
                                     Console.WriteLine("You entered too many letters. Please enter only one letter!");
                                 break;
-
                         }
                     }
                     else // deals with null and "" cases
@@ -166,7 +144,7 @@ namespace VariablesExercise
                         Console.WriteLine($"You didn't enter anything. Please enter {wordRequested}!");
                         Console.WriteLine("Or type 'exit' to end the program");
                     }
-                } while (!validWordEntered); //loops until a valid answer is given
+                } while (true); //loops until a valid answer is given
 
                 return word;
             }
