@@ -53,7 +53,7 @@ namespace VariablesExercise
                 if (i == 8 || i == 9)//ints
                     allTheWords[i] = GetTheWord("a whole number", questionCounter, ref keepGoing);
                 if (i == 10 || i == 11)//chars
-                    allTheWords[i] = GetTheWord("a single letter", questionCounter, ref keepGoing);
+                    allTheWords[i] = GetTheWord("a single character", questionCounter, ref keepGoing);
                 if (i == 12) // adjective
                     allTheWords[i] = GetTheWord("an adjective", questionCounter, ref keepGoing);
                 if (i == 13 || i == 14)//plural noun
@@ -131,11 +131,11 @@ namespace VariablesExercise
                                 Console.WriteLine("You entered letters instead of a valid integer. Please try again!");
                             break;
 
-                        case "a single letter":
+                        case "a single character":
                             if (word.Length == 1)
                                 return word;
                             else
-                                Console.WriteLine("You entered too many letters. Please enter only one letter!");
+                                Console.WriteLine("You entered too many characters. Please enter only one character!");
                             break;
                     }
                 }
